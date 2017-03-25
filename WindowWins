@@ -1,0 +1,27 @@
+ 
+import java.util.ArrayList;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
+
+public class Bank {
+
+	@Test
+	public static void dd() {
+		WebDriver gp = new FirefoxDriver();
+		gp.get("https://www.online.citibank.co.in/products-services/online-services/internet-banking.htm");
+		gp.manage().window().maximize();
+		// Parent win control
+		String old = gp.getWindowHandle();
+		gp.findElement(By.xpath("//*[@id='main']/div[1]/div[2]/a")).click();
+		ArrayList<String> a = new ArrayList<String>(gp.getWindowHandles());
+		a.remove(old);
+		String NewWin = a.get(0);
+		// Switching to New Window
+		gp.switchTo().window(NewWin);
+		gp.findElement(By.xpath("//*[@id='User_Id']")).sendKeys("00000");
+		gp.switchTo().window(old);
+
+	}
+}
